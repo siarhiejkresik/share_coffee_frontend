@@ -7,6 +7,9 @@ import { linkTo } from "@storybook/addon-links";
 import { Button, Welcome } from "@storybook/react/demo";
 
 import TopicDescription from "../src/TopicDescription";
+import TopicEditor from "../src/TopicEditor";
+
+storiesOf('Welcome', module).add('to Storybook', () => <Welcome showApp={linkTo('Button')} />);
 
 storiesOf("Welcome", module).add("to Storybook", () => (
   <Welcome showApp={linkTo("Button")} />
@@ -38,3 +41,5 @@ storiesOf("Topic description", module)
   .add("editable without text", () => (
     <TopicDescription editable={true} onChange={onChangeCallback} />
   ));
+// Topic editor
+storiesOf("Topic editor", module).add("topic editor", () => <TopicEditor />);
