@@ -1,5 +1,7 @@
 import React, { Component } from "react";
 
+import TopicDescription from "../TopicDescription";
+
 import styles from "./styles.module.scss";
 
 import PREDEFINED_TOPIC from "./constants";
@@ -14,13 +16,17 @@ class TopicEditor extends Component {
     this.onSave = this.onSave.bind(this);
     this.onCancel = this.onCancel.bind(this);
     this.onChange = this.onChange.bind(this);
+    this.onTopicDescriptionChange = this.onTopicDescriptionChange.bind(this);
+    // TODO: this.onMapPlaceChange
   }
 
   onSave(e) {
+    // TODO: how to wait state's update?
     e.preventDefault();
     console.log("saving");
     console.log(this.state);
     // TODO: send state object to backend
+    // TODO: how to block all inputs until a server response?
   }
 
   onCancel(event) {
@@ -41,6 +47,17 @@ class TopicEditor extends Component {
       () => console.log("state changed:", this.state),
     );
   }
+
+  onTopicDescriptionChange(data) {
+    this.setState(
+      {
+        description: data,
+      },
+      () => console.log("data changed:", this.state),
+    );
+  }
+
+  onMapPlaceChange(coords) {}
 
   render() {
     return (
@@ -63,7 +80,11 @@ class TopicEditor extends Component {
             />
           </div>
 
-          <div>[ TopicDescription component ]</div>
+          <TopicDescription
+            data={this.state.description}
+            onChange={this.onTopicDescriptionChange}
+            editable={true}
+          />
 
           <div>
             <label htmlFor="regular">Regular</label>

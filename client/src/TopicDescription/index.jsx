@@ -24,6 +24,7 @@ class TopicDescription extends React.Component {
     this.setState({ editorState }, () => {
       if (this.props.onChange) {
         const renderedHTML = exportToHtml(this.state.editorState);
+        console.log(renderedHTML);
         this.props.onChange(renderedHTML);
       }
     });
