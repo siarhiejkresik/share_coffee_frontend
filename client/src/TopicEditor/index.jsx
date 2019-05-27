@@ -5,7 +5,11 @@ import TimeChooser from "./TimeChooser";
 import TopicDescription from "../TopicDescription";
 import CyclicChooser from "./CyclicChooser";
 
+import * as validator from "./validators.js";
 import * as formatters from "./formatters";
+import formScheme from "./schemeForm";
+import dataScheme from "./schemeData";
+
 import styles from "./styles.module.scss";
 
 import {
@@ -19,6 +23,7 @@ class TopicEditor extends Component {
   constructor(props) {
     super(props);
     this.state = this.props.topicData;
+    this.state.errors = {};
 
     this.onSave = this.onSave.bind(this);
     this.onCancel = this.onCancel.bind(this);
@@ -27,10 +32,17 @@ class TopicEditor extends Component {
     this.onSingleDateChange = this.onSingleDateChange.bind(this);
   }
 
-  stateSetting(name, value) {
+  stateSetting(name, payload) {
+    const { errors } = this.state;
+    if (payload.error !== undefined) {
+      errors[name] = payload.error;
+    }
+    debugger;
+    console.log("errors", errors);
     this.setState(
       {
-        [name]: value,
+        errors,
+        [name]: payload.value,
       },
       () => console.log("state changed:", this.state),
     );
@@ -86,10 +98,25 @@ class TopicEditor extends Component {
 
   onCyclicChange(name, value) {
     const newValue = JSON.parse(value); // parsers.stringToBoolean
-    this.stateSetting(name, newValue);
+    const payload = { value: newValue };
+    this.stateSetting(name, payload);
   }
 
-  onTimeChange(name, value) {}
+  onTimeChange(name, value) {
+    const payload = { value };
+    validator.check(payload, [
+      validator.isNotEmptyString,
+      validator.isHELLOstring,
+    ]);
+
+    if (payload.error === true) {
+      console.log("ERROR", payload);
+    } else if (payload.error === false) {
+      console.log("OK", payload);
+    }
+
+    this.stateSetting(name, payload);
+  }
 
   onWeekDayChange(name, value) {
     const newValue = Number(value); // stringToNumber
@@ -155,6 +182,7 @@ class TopicEditor extends Component {
               singleDate={this.state.singleDate}
               time={this.state.time}
               onChange={this.onChange}
+              onTimeError={this.state.errors.time}
               onSingleDateChange={this.onSingleDateChange}
             />
           ) : null}

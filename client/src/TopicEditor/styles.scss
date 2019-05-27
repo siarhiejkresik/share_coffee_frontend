@@ -8,3 +8,7 @@ $mr-red: #FF0032;
 $mr-orange: #FF6400;
 $background-grey: #FAFAFA;
 $unactive-grey: #C8C8C8;
+
+.valid_error {
+    border-bottom: 1px solid $mr-red !important;
+}
