@@ -4,7 +4,6 @@ import styled from "styled-components";
 export const TabContainer = styled.div`
   display: flex;
   border-top: 1px solid #e6e6e6;
-  margin-bottom: 20px;
 `;
 
 export const Tab = styled.div`
@@ -16,8 +15,7 @@ export const Tab = styled.div`
   text-align: center;
   padding: 20px;
   cursor: pointer;
-  border-bottom: ${({ active }) =>
-    active ? "1px solid #0064FF;" : "1px solid #e6e6e6;"};
+  border-bottom: ${({ active }) => (active ? "1px solid #0064FF;" : "1px solid #e6e6e6;")};
 
   &:hover {
     background-color: #f5f5f5;

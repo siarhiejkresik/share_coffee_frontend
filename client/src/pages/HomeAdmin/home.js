@@ -24,38 +24,23 @@ class HomeDashboard extends React.Component {
     const { activeTab } = this.state;
 
     return (
-      <>
-        <Header
-          isActive={true}
-          isAdmin={
-            checkerProp(sessionStorage.getItem("isAdmin")) ? "2" : sessionStorage.getItem("isAdmin")
-          }
-          hasDepartment={false}
-          location={this.props}
-          avatar={sessionStorage.getItem("avatar")}
-          name={sessionStorage.getItem("firstName")}
-          surName={sessionStorage.getItem("lastName")}
-        />
-        <div className="login_container" style={{ width: "100%" }}>
-          <h1>Admin panel</h1>
-          <div>
-            <TabContainer>
-              <Tab onClick={() => this.openTab("Topics")} active={activeTab === "Topics"}>
-                Topics
-              </Tab>
-              <Tab onClick={() => this.openTab("Users")} active={activeTab === "Users"}>
-                Users
-              </Tab>
-              <Tab onClick={() => this.openTab("Teams")} active={activeTab === "Teams"}>
-                Teams
-              </Tab>
-            </TabContainer>
-            {activeTab === "Topics" && <Topics history={this.props.history} />}
-            {activeTab === "Users" && <Users />}
-            {activeTab === "Teams" && <Teams />}
-          </div>
-        </div>
-      </>
+      <div>
+        <TabContainer>
+          <Tab onClick={() => this.openTab("Topics")} active={activeTab === "Topics"}>
+            Topics
+          </Tab>
+          <Tab onClick={() => this.openTab("Users")} active={activeTab === "Users"}>
+            Users
+          </Tab>
+          <Tab onClick={() => this.openTab("Teams")} active={activeTab === "Teams"}>
+            Teams
+          </Tab>
+        </TabContainer>
+        <div className="shadow_container" />
+        {activeTab === "Topics" && <Topics history={this.props.history} />}
+        {activeTab === "Users" && <Users />}
+        {activeTab === "Teams" && <Teams />}
+      </div>
     );
   }
 }
